@@ -19,7 +19,6 @@ class _CleanTabState extends State<CleanTab> {
   Map<String, int> _storage = {'total': 0, 'available': 0, 'used': 0};
   Map<String, int> _cacheStats = {'size': 0, 'count': 0};
   Map<String, int> _apkStats = {'size': 0, 'count': 0};
-  bool _loading = true;
   bool _scanning = false;
 
   @override
@@ -33,7 +32,6 @@ class _CleanTabState extends State<CleanTab> {
     if (mounted) {
       setState(() {
         _storage = storage;
-        _loading = false;
       });
     }
   }
@@ -104,7 +102,7 @@ class _CleanTabState extends State<CleanTab> {
                     ? LinearGradient(colors: [Colors.grey.shade800, Colors.grey.shade700]) 
                     : const LinearGradient(colors: [Color(0xFF60A5FA), Color(0xFF3B82F6)]),
                 borderRadius: BorderRadius.circular(14),
-                boxShadow: _scanning ? [] : [BoxShadow(color: const Color(0xFF60A5FA).withOpacity(0.3), blurRadius: 16, offset: const Offset(0, 6))],
+                boxShadow: _scanning ? [] : [BoxShadow(color: const Color(0xFF60A5FA).withAlpha(77), blurRadius: 16, offset: const Offset(0, 6))],
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

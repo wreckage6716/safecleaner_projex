@@ -67,7 +67,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
               margin: const EdgeInsets.only(right: 16),
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
-                color: _shizukuActive ? const Color(0xFF34D399).withOpacity(0.15) : const Color(0xFFEF4444).withOpacity(0.15),
+                color: _shizukuActive ? const Color(0xFF34D399).withAlpha(38) : const Color(0xFFEF4444).withAlpha(38),
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(color: _shizukuActive ? const Color(0xFF34D399) : const Color(0xFFEF4444)),
               ),
@@ -90,7 +90,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
 
   Widget _buildBottomNav() {
     return Container(
-      decoration: BoxDecoration(color: const Color(0xFF0A0A0A), border: Border(top: BorderSide(color: Colors.white.withOpacity(0.1), width: 0.5))),
+      decoration: BoxDecoration(color: const Color(0xFF0A0A0A), border: Border(top: BorderSide(color: Colors.white.withAlpha(26), width: 0.5))),
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 6),
@@ -124,7 +124,7 @@ class _NavItem extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-        decoration: BoxDecoration(color: active ? const Color(0xFF60A5FA).withOpacity(0.15) : Colors.transparent, borderRadius: BorderRadius.circular(10)),
+        decoration: BoxDecoration(color: active ? const Color(0xFF60A5FA).withAlpha(38) : Colors.transparent, borderRadius: BorderRadius.circular(10)),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

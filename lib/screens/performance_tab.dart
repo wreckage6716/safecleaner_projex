@@ -15,7 +15,6 @@ class _PerformanceTabState extends State<PerformanceTab> {
   Timer? _timer;
   Map<String, int> _memInfo = {'total': 0, 'available': 0, 'used': 0};
   double _cpuUsage = 0.0;
-  bool _loading = true;
 
   @override
   void initState() {
@@ -37,7 +36,6 @@ class _PerformanceTabState extends State<PerformanceTab> {
       setState(() {
         _memInfo = mem;
         _cpuUsage = cpu;
-        _loading = false;
       });
     }
   }
@@ -46,6 +44,8 @@ class _PerformanceTabState extends State<PerformanceTab> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(12),
       child: Column(
@@ -59,7 +59,7 @@ class _PerformanceTabState extends State<PerformanceTab> {
                 child: _InfoCard(
                   value: '${_formatGB(_memInfo['used'] ?? 0)} GB',
                   label: 'RAM Used / ${_formatGB(_memInfo['total'] ?? 0)} GB',
-                  color: const Color(0xFF60A5FA),
+                  color: colorScheme.primary,
                 ),
               ),
               const SizedBox(width: 8),
@@ -67,7 +67,7 @@ class _PerformanceTabState extends State<PerformanceTab> {
                 child: _InfoCard(
                   value: '${_cpuUsage.toStringAsFixed(1)}%',
                   label: 'CPU Usage',
-                  color: const Color(0xFF34D399),
+                  color: colorScheme.secondary,
                 ),
               ),
             ],
@@ -76,15 +76,15 @@ class _PerformanceTabState extends State<PerformanceTab> {
           _ProgressBar(
             label: 'RAM Load',
             percent: (_memInfo['total'] ?? 0) > 0 ? (_memInfo['used']! / _memInfo['total']!) : 0,
-            color: const Color(0xFF60A5FA),
+            color: colorScheme.primary,
           ),
           const SizedBox(height: 12),
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: const Color(0xFF0A0A0A),
-              border: Border.all(color: Colors.white.withOpacity(0.05)),
-              borderRadius: BorderRadius.circular(10),
+              color: colorScheme.surface,
+              border: Border.all(color: Colors.white.withAlpha(13)),
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
             ),
             child: Row(
               children: [
@@ -97,7 +97,7 @@ class _PerformanceTabState extends State<PerformanceTab> {
                       const Text('System Status', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
                       Text(
                         _cpuUsage > 80 ? 'Heavy Load Detected' : 'System running smoothly',
-                        style: TextStyle(fontSize: 10, color: _cpuUsage > 80 ? Colors.red : Colors.white54),
+                        style: TextStyle(fontSize: 10, color: _cpuUsage > 80 ? colorScheme.error : Colors.white54),
                       ),
                     ],
                   ),
@@ -108,7 +108,7 @@ class _PerformanceTabState extends State<PerformanceTab> {
           const SizedBox(height: 20),
           const Text('Hardware Info', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
           const SizedBox(height: 8),
-          _HardwareItem(label: 'Architecture', value: 'arm64-v8a'),
+          const _HardwareItem(label: 'Architecture', value: 'arm64-v8a'),
           _HardwareItem(label: 'Memory Limit', value: '${_formatGB(_memInfo['threshold'] ?? 0)} GB (Critical)'),
           _HardwareItem(label: 'Low RAM Mode', value: (_memInfo['lowMemory'] == 1) ? 'Yes' : 'No'),
         ],
@@ -128,9 +128,9 @@ class _InfoCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: const Color(0xFF0A0A0A),
-        border: Border.all(color: Colors.white.withOpacity(0.05)),
-        borderRadius: BorderRadius.circular(12),
+        color: Theme.of(context).colorScheme.surface,
+        border: Border.all(color: Colors.white.withAlpha(13)),
+        borderRadius: const BorderRadius.all(Radius.circular(12)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -164,11 +164,11 @@ class _ProgressBar extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         ClipRRect(
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: const BorderRadius.all(Radius.circular(4)),
           child: LinearProgressIndicator(
             value: percent,
             minHeight: 6,
-            backgroundColor: Colors.white.withOpacity(0.05),
+            backgroundColor: Colors.white.withAlpha(13),
             valueColor: AlwaysStoppedAnimation<Color>(color),
           ),
         ),

@@ -19,7 +19,7 @@ class ToolsTab extends StatelessWidget {
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: const Color(0xFF0A0A0A),
-              border: Border.all(color: Colors.white.withOpacity(0.05)),
+              border: Border.all(color: Colors.white.withAlpha(13)),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Column(
@@ -27,12 +27,12 @@ class ToolsTab extends StatelessWidget {
               children: [
                 const Text('ADB Connection', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 12),
-                Row(
+                const Row(
                   children: [
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text('USB', style: TextStyle(fontSize: 10, color: Colors.white54)),
                           SizedBox(height: 2),
                           Text('Connected', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Color(0xFF34D399))),
@@ -43,7 +43,7 @@ class ToolsTab extends StatelessWidget {
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text('Wi-Fi', style: TextStyle(fontSize: 10, color: Colors.white54)),
                           SizedBox(height: 2),
                           Text('Offline', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Color(0xFFEF4444))),
@@ -61,7 +61,7 @@ class ToolsTab extends StatelessWidget {
                     icon: const Icon(Icons.settings_input_antenna, size: 18),
                     label: const Text('Setup Wireless'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF60A5FA).withOpacity(0.15),
+                      backgroundColor: const Color(0xFF60A5FA).withAlpha(38),
                       foregroundColor: const Color(0xFF60A5FA),
                       side: const BorderSide(color: Color(0xFF60A5FA)),
                       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -79,7 +79,7 @@ class ToolsTab extends StatelessWidget {
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: const Color(0xFF0A0A0A),
-              border: Border.all(color: Colors.white.withOpacity(0.05)),
+              border: Border.all(color: Colors.white.withAlpha(13)),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Column(
@@ -112,15 +112,15 @@ class ToolsTab extends StatelessWidget {
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: const Color(0xFF0A0A0A),
-              border: Border.all(color: Colors.white.withOpacity(0.05)),
+              border: Border.all(color: Colors.white.withAlpha(13)),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Protected Packages (22)', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
-                const SizedBox(height: 8),
-                const Text(
+                Text('Protected Packages (22)', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+                SizedBox(height: 8),
+                Text(
                   '• android, system, systemui\n'
                   '• phone, settings, gms, gsf\n'
                   '• samsung launcher & keyboard\n'
@@ -137,21 +137,21 @@ class ToolsTab extends StatelessWidget {
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: const Color(0xFF0A0A0A),
-              border: Border.all(color: Colors.white.withOpacity(0.05)),
+              border: Border.all(color: Colors.white.withAlpha(13)),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('System Info', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
-                const SizedBox(height: 12),
+                Text('System Info', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+                SizedBox(height: 12),
                 Row(
                   children: [
                     Expanded(child: _SystemInfoItem(label: 'Android', value: '8.0.0')),
                     Expanded(child: _SystemInfoItem(label: 'Device', value: 'J5 Prime')),
                   ],
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12),
                 Row(
                   children: [
                     Expanded(child: _SystemInfoItem(label: 'RAM', value: '2 GB')),
@@ -179,9 +179,9 @@ class _QuickActionButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onTap,
       style: ElevatedButton.styleFrom(
-        backgroundColor: color.withOpacity(0.15),
+        backgroundColor: color.withAlpha(38),
         foregroundColor: color,
-        side: BorderSide(color: color.withOpacity(0.5)),
+        side: BorderSide(color: color.withAlpha(128)),
         padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),

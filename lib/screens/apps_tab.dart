@@ -66,6 +66,8 @@ class _AppsTabState extends State<AppsTab> {
                 packageName: app['packageName'],
                 shizukuActive: widget.shizukuActive,
                 isSystem: false,
+                onForceStop: () => _shizuku.forceStopApp(app['packageName']),
+                onClearData: () => _shizuku.clearAppCache(app['packageName']),
               )),
               const SizedBox(height: 16),
               const Text('System Applications', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white70)),
@@ -97,7 +99,7 @@ class _InfoCard extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: const Color(0xFF0A0A0A),
-        border: Border.all(color: Colors.white.withOpacity(0.05)),
+        border: Border.all(color: Colors.white.withAlpha(13)),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -117,6 +119,8 @@ class _AppItem extends StatelessWidget {
   final String? badge;
   final bool shizukuActive;
   final bool isSystem;
+  final VoidCallback? onForceStop;
+  final VoidCallback? onClearData;
 
   const _AppItem({
     required this.name,
@@ -124,6 +128,8 @@ class _AppItem extends StatelessWidget {
     this.badge,
     required this.shizukuActive,
     required this.isSystem,
+    this.onForceStop,
+    this.onClearData,
   });
 
   @override
@@ -133,7 +139,7 @@ class _AppItem extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: const Color(0xFF0A0A0A),
-        border: Border.all(color: Colors.white.withOpacity(0.05)),
+        border: Border.all(color: Colors.white.withAlpha(13)),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
@@ -154,8 +160,8 @@ class _AppItem extends StatelessWidget {
               if (badge != null)
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                  decoration: BoxDecoration(color: Colors.amber.withOpacity(0.15), borderRadius: BorderRadius.circular(6)),
-                  child: Text(badge!, style: const TextStyle(fontSize: 8, fontWeight: FontWeight.w600, color: Colors.amber)),
+                  decoration: BoxDecoration(color: const Color(0xFFFBBF24).withAlpha(38), borderRadius: BorderRadius.circular(6)),
+                  child: Text(badge!, style: const TextStyle(fontSize: 8, fontWeight: FontWeight.w600, color: Color(0xFFFBBF24))),
                 ),
             ],
           ),
@@ -166,13 +172,13 @@ class _AppItem extends StatelessWidget {
                 _ActionButton(
                   label: 'Force Stop',
                   color: const Color(0xFFEF4444),
-                  onTap: () => ShizukuService().forceStopApp(packageName),
+                  onTap: onForceStop!,
                 ),
                 const SizedBox(width: 8),
                 _ActionButton(
                   label: 'Clear Data',
                   color: const Color(0xFFFBBF24),
-                  onTap: () => ShizukuService().clearAppCache(packageName),
+                  onTap: onClearData!,
                 ),
               ],
             ),
@@ -193,14 +199,14 @@ class _ActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Material(
-        color: color.withOpacity(0.1),
+        color: color.withAlpha(26),
         borderRadius: BorderRadius.circular(6),
         child: InkWell(
           onTap: onTap,
           borderRadius: BorderRadius.circular(6),
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 6),
-            decoration: BoxDecoration(border: Border.all(color: color.withOpacity(0.3)), borderRadius: BorderRadius.circular(6)),
+            decoration: BoxDecoration(border: Border.all(color: color.withAlpha(77)), borderRadius: BorderRadius.circular(6)),
             child: Center(child: Text(label, style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: color))),
           ),
         ),

@@ -1,6 +1,4 @@
 import 'dart:io';
-import 'package:crypto/crypto.dart';
-import 'dart:convert';
 
 class FileScannerService {
   static final FileScannerService _instance = FileScannerService._internal();
@@ -19,11 +17,15 @@ class FileScannerService {
               final stat = await entity.stat();
               totalSize += stat.size;
               count++;
-            } catch (e) {}
+            } catch (e) {
+              // Failed to get stats for a file
+            }
           }
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      // Failed to scan cache files
+    }
     return {'size': totalSize, 'count': count};
   }
 
@@ -39,11 +41,15 @@ class FileScannerService {
               final stat = await entity.stat();
               totalSize += stat.size;
               count++;
-            } catch (e) {}
+            } catch (e) {
+              // Failed to get stats for a file
+            }
           }
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      // Failed to scan APK files
+    }
     return {'size': totalSize, 'count': count};
   }
 
@@ -55,12 +61,15 @@ class FileScannerService {
           if (entity is File && entity.path.contains('/cache/')) {
             try {
               await entity.delete();
-            } catch (e) {}
+            } catch (e) {
+              // Failed to delete a file
+            }
           }
         }
       }
       return true;
     } catch (e) {
+      // Failed to delete cache files
       return false;
     }
   }

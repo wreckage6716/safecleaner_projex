@@ -37,7 +37,6 @@ class SafeCleanerApp extends StatelessWidget {
           primary: Color(0xFF60A5FA),
           secondary: Color(0xFF34D399),
           surface: Color(0xFF0A0A0A),
-          background: Color(0xFF000000),
           error: Color(0xFFEF4444),
         ),
         scaffoldBackgroundColor: const Color(0xFF000000),

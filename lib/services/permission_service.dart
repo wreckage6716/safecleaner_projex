@@ -11,12 +11,9 @@ class PermissionService {
     }
     
     // Fallback untuk Android lama
-    final status = await [
-      Permission.storage,
-      Permission.mediaLibrary,
-    ].request();
+    final status = await Permission.storage.request();
     
-    return status.values.every((s) => s.isGranted);
+    return status.isGranted;
   }
 
   static Future<bool> hasStoragePermission() async {
