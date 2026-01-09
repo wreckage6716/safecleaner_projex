@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeCleaner Pro - Complete Mockup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background: #1a1a1a;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .phone-frame {
+            width: 360px;
+            height: 640px;
+            background: #000;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            overflow: hidden;
+            border: 8px solid #2a2a2a;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .status-bar {
+            height: 24px;
+            background: #000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+            font-size: 11px;
+            color: #999;
+            flex-shrink: 0;
+        }
+
+        .app-bar {
+            background: rgba(10,10,10,0.95);
+            backdrop-filter: blur(10px);
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 0.5px solid rgba(255,255,255,0.05);
+            flex-shrink: 0;
+        }
+
+        .app-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .shizuku-badge {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 16px;
+            font-size: 11px;
+            font-weight: 600;
+            border: 1px solid;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .shizuku-badge.inactive {
+            background: rgba(239,68,68,0.15);
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+
+        .shizuku-badge.active {
+            background: rgba(52,211,153,0.15);
+            border-color: #34d399;
+            color: #34d399;
+        }
+
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px;
+            background: #000;
+        }
+
+        .content::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .content::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 3px;
+        }
+
+        .storage-card {
+            background: linear-gradient(135deg, rgba(96,165,250,0.2), rgba(52,211,153,0.1));
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .storage-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .storage-label {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .storage-status {
+            background: rgba(251,191,36,0.2);
+            color: #fbbf24;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .storage-size {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .storage-size span {
+            font-size: 16px;
+            color: rgba(255,255,255,0.4);
+            font-weight: 400;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #60a5fa, #3b82f6);
+            border-radius: 6px;
+        }
+
+        .scan-button {
+            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+            border: none;
+            border-radius: 14px;
+            padding: 14px;
+            width: 100%;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            margin-bottom: 16px;
+            box-shadow: 0 6px 16px rgba(96,165,250,0.3);
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .category-card {
+            background: #0a0a0a;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 14px;
+            padding: 12px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .category-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .category-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .category-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .category-subtitle {
+            font-size: 11px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .category-meta {
+            text-align: right;
+        }
+
+        .category-size {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .category-count {
+            font-size: 10px;
+            color: rgba(255,255,255,0.3);
+        }
+
+        .bottom-nav {
+            background: #0a0a0a;
+            border-top: 0.5px solid rgba(255,255,255,0.1);
+            padding: 6px 4px;
+            display: flex;
+            justify-content: space-around;
+            flex-shrink: 0;
+        }
+
+        .nav-item {
+            padding: 6px 10px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .nav-item.active {
+            background: rgba(96,165,250,0.15);
+        }
+
+        .nav-icon {
+            font-size: 22px;
+        }
+
+        .nav-label {
+            font-size: 9px;
+            font-weight: 400;
+            color: #999;
+        }
+
+        .nav-item.active .nav-label {
+            color: #60a5fa;
+            font-weight: 600;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .info-card {
+            background: #0a0a0a;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 12px;
+        }
+
+        .info-value {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .info-label {
+            font-size: 11px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .alert-banner {
+            background: rgba(239,68,68,0.15);
+            border: 1px solid #ef4444;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        .alert-banner.info {
+            background: rgba(96,165,250,0.15);
+            border-color: #60a5fa;
+        }
+
+        .process-item {
+            background: #0a0a0a;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 6px;
+        }
+
+        .process-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .process-name {
+            font-size: 12px;
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .process-badge {
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-size: 9px;
+            font-weight: 600;
+        }
+
+        .process-badge.protected {
+            background: rgba(52,211,153,0.15);
+            color: #34d399;
+        }
+
+        .process-badge.warning {
+            background: rgba(251,191,36,0.15);
+            color: #fbbf24;
+        }
+
+        .process-stats {
+            display: flex;
+            gap: 12px;
+            font-size: 10px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 6px;
+        }
+
+        .process-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .mini-button {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid;
+        }
+
+        .mini-button.stop {
+            background: rgba(239,68,68,0.1);
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+
+        .mini-button.clear {
+            background: rgba(251,191,36,0.1);
+            border-color: #fbbf24;
+            color: #fbbf24;
+        }
+
+        .action-button {
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid;
+            flex: 1;
+        }
+
+        .action-button.primary {
+            background: rgba(96,165,250,0.15);
+            border-color: #60a5fa;
+            color: #60a5fa;
+        }
+
+        .action-button.danger {
+            background: rgba(239,68,68,0.15);
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+
+        .action-button.success {
+            background: rgba(52,211,153,0.15);
+            border-color: #34d399;
+            color: #34d399;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .comparison-card {
+            background: #0a0a0a;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .comparison-label {
+            font-size: 10px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 6px;
+        }
+
+        .comparison-value {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .comparison-change {
+            font-size: 10px;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .chart-container {
+            background: #0a0a0a;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        .chart-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .tool-card {
+            background: #0a0a0a;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 14px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .tool-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .tool-name {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .tool-desc {
+            font-size: 10px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .spinner {
+            border: 2px solid rgba(96,165,250,0.2);
+            border-top: 2px solid #60a5fa;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-frame">
+        <div class="status-bar">
+            <div>🔒 📶 ⚡ 📡 65%</div>
+            <div>00:08</div>
+        </div>
+
+        <div class="app-bar">
+            <div class="app-title">SafeCleaner Pro</div>
+            <div class="shizuku-badge inactive" id="shizuku-status" onclick="toggleShizuku()">
+                <span>🛡️</span>
+                <span>Limited</span>
+            </div>
+        </div>
+
+        <div class="content" id="content-area">
+            <!-- TAB 1: CLEAN -->
+            <div class="tab-content active" id="tab-clean">
+                <div class="alert-banner" id="shizuku-alert">
+                    <div>⚠️</div>
+                    <div><strong>USB required:</strong> Connect to unlock premium features</div>
+                </div>
+
+                <div class="storage-card">
+                    <div class="storage-header">
+                        <div class="storage-label">Storage Status</div>
+                        <div class="storage-status">73% Used</div>
+                    </div>
+                    <div class="storage-size">11.6 GB <span>/ 16 GB</span></div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 73%"></div>
+                    </div>
+                </div>
+
+                <button class="scan-button" onclick="startScan()">
+                    <span>🔍</span>
+                    <span>Start Deep Scan</span>
+                </button>
+
+                <div class="section-title">Cleaning Categories</div>
+
+                <div class="category-card">
+                    <div class="category-icon" style="background: rgba(96,165,250,0.15)">
+                        <span style="color: #60a5fa">💾</span>
+                    </div>
+                    <div class="category-info">
+                        <div class="category-title">Cache Files</div>
+                        <div class="category-subtitle">App & system cache</div>
+                    </div>
+                    <div class="category-meta">
+                        <div class="category-size" style="color: #60a5fa">847 MB</div>
+                        <div class="category-count">234 items</div>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-icon" style="background: rgba(52,211,153,0.15)">
+                        <span style="color: #34d399">📦</span>
+                    </div>
+                    <div class="category-info">
+                        <div class="category-title">APK Files</div>
+                        <div class="category-subtitle">Downloaded installers</div>
+                    </div>
+                    <div class="category-meta">
+                        <div class="category-size" style="color: #34d399">234 MB</div>
+                        <div class="category-count">12 items</div>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-icon" style="background: rgba(251,191,36,0.15)">
+                        <span style="color: #fbbf24">🖼️</span>
+                    </div>
+                    <div class="category-info">
+                        <div class="category-title">Thumbnails</div>
+                        <div class="category-subtitle">Cached thumbnails</div>
+                    </div>
+                    <div class="category-meta">
+                        <div class="category-size" style="color: #fbbf24">156 MB</div>
+                        <div class="category-count">1,847 items</div>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-icon" style="background: rgba(245,158,11,0.15)">
+                        <span style="color: #f59e0b">📋</span>
+                    </div>
+                    <div class="category-info">
+                        <div class="category-title">Duplicates</div>
+                        <div class="category-subtitle">Duplicate files</div>
+                    </div>
+                    <div class="category-meta">
+                        <div class="category-size" style="color: #f59e0b">1.2 GB</div>
+                        <div class="category-count">89 items</div>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-icon" style="background: rgba(139,92,246,0.15)">
+                        <span style="color: #8b5cf6">📁</span>
+                    </div>
+                    <div class="category-info">
+                        <div class="category-title">Empty Folders</div>
+                        <div class="category-subtitle">Remove directories</div>
+                    </div>
+                    <div class="category-meta">
+                        <div class="category-size" style="color: #8b5cf6">48 items</div>
+                        <div class="category-count">0 MB</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: PERFORMANCE -->
+            <div class="tab-content" id="tab-performance">
+                <div class="section-title">Performance Monitor</div>
+
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-value" style="color: #60a5fa">1.2 GB</div>
+                        <div class="info-label">RAM Used</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-value" style="color: #34d399">45%</div>
+                        <div class="info-label">CPU Usage</div>
+                    </div>
+                </div>
+
+                <div class="alert-banner info">
+                    <div>ℹ️</div>
+                    <div><strong>22 packages protected</strong> from force stop</div>
+                </div>
+
+                <div style="display: flex; gap: 6px; margin-bottom: 12px;">
+                    <button class="action-button primary" onclick="alert('Scanning...')">📊 Scan</button>
+                    <button class="action-button success" onclick="optimizeAll()">⚡ Optimize</button>
+                </div>
+
+                <div class="section-title">Active Processes</div>
+
+                <div class="process-item">
+                    <div class="process-header">
+                        <div class="process-name">com.google.android.gms</div>
+                        <div class="process-badge protected">PROTECTED</div>
+                    </div>
+                    <div class="process-stats">
+                        <span>📊 234 MB</span>
+                        <span>⚡ 12%</span>
+                    </div>
+                    <div style="font-size: 9px; color: rgba(255,255,255,0.5);">Critical system service</div>
+                </div>
+
+                <div class="process-item">
+                    <div class="process-header">
+                        <div class="process-name">com.whatsapp</div>
+                        <div class="process-badge protected">PROTECTED</div>
+                    </div>
+                    <div class="process-stats">
+                        <span>📊 189 MB</span>
+                        <span>⚡ 5%</span>
+                    </div>
+                    <div style="font-size: 9px; color: rgba(255,255,255,0.5);">User whitelist</div>
+                </div>
+
+                <div class="process-item">
+                    <div class="process-header">
+                        <div class="process-name">com.facebook.katana</div>
+                        <div class="process-badge warning">HIGH</div>
+                    </div>
+                    <div class="process-stats">
+                        <span>📊 312 MB</span>
+                        <span>⚡ 18%</span>
+                    </div>
+                    <div class="process-actions">
+                        <button class="mini-button stop" onclick="forceStop('Facebook')">Stop</button>
+                        <button class="mini-button clear" onclick="clearCache('Facebook')">Clear</button>
+                    </div>
+                </div>
+
+                <div class="section-title">Before / After</div>
+
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <div class="comparison-label">Before</div>
+                        <div class="comparison-value" style="color: #ef4444">1.2 GB</div>
+                        <div class="comparison-change">RAM</div>
+                    </div>
+                    <div class="comparison-card">
+                        <div class="comparison-label">After</div>
+                        <div class="comparison-value" style="color: #34d399">890 MB</div>
+                        <div class="comparison-change" style="color: #34d399">↓ 26%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: APPS -->
+            <div class="tab-content" id="tab-apps">
+                <div class="section-title">App Management</div>
+
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-value" style="color: #60a5fa">127</div>
+                        <div class="info-label">Total Apps</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-value" style="color: #34d399">89</div>
+                        <div class="info-label">User Apps</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-value" style="color: #fbbf24">38</div>
+                        <div class="info-label">System</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-value" style="color: #ef4444">12</div>
+                        <div class="info-label">Disabled</div>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 6px; margin-bottom: 12px;">
+                    <button class="action-button primary">📦 Batch</button>
+                    <button class="action-button danger">🗑️ Bloatware</button>
+                </div>
+
+                <div class="section-title">Top Apps by Size</div>
+
+                <div class="process-item">
+                    <div class="process-header">
+                        <div class="process-name">Mobile Legends</div>
+                    </div>
+                    <div class="process-stats">
+                        <span>📦 1.2 GB</span>
+                        <span>📊 340 MB data</span>
+                    </div>
+                    <div class="process-actions">
+                        <button class="mini-button stop">Stop</button>
+                        <button class="mini-button clear">Clear</button>
+                    </div>
+                </div>
+
+                <div class="process-item">
+                    <div class="process-header">
+                        <div class="process-name">WhatsApp</div>
+                        <div class="process-badge protected">PROTECTED</div>
+                    </div>
+                    <div class="process-stats">
+                        <span>📦 438 MB</span>
+                        <span>📊 2.1 GB data</span>
+                    </div>
+                    <div style="font-size: 9px; color: rgba(255,255,255,0.5);">Protected from operations</div>
+                </div>
+
+                <div class="process-item">
+                    <div class="process-header">
+                        <div class="process-name">Telegram</div>
+                        <div class="process-badge protected">PROTECTED</div>
+                    </div>
+                    <div class="process-stats">
+                        <span>📦 289 MB</span>
+                        <span>📊 1.5 GB data</span>
+                    </div>
+                    <div style="font-size: 9px; color: rgba(255,255,255,0.5);">Protected from operations</div>
+                </div>
+            </div>
+
+            <!-- TAB 4: TOOLS -->
+            <div class="tab-content" id="tab-tools">
+                <div class="section-title">Power Tools</div>
+
+                <div class="chart-container">
+                    <div class="chart-title">ADB Connection</div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                        <div>
+                            <div style="font-size: 10px; color: rgba(255,255,255,0.5);">USB</div>
+                            <div style="font-size: 13px; font-weight: 600; color: #34d399;">Connected</div>
+                            <div style="font-size: 9px; color: rgba(255,255,255,0.3);">4200823...</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 10px; color: rgba(255,255,255,0.5);">Wi-Fi</div>
+                            <div style="font-size: 13px; font-weight: 600; color: #ef4444;">Offline</div>
+                            <div style="font-size: 9px; color: rgba(255,255,255,0.3);">Not setup</div>
+                        </div>
+                    </div>
+                    <button class="action-button primary" style="width: 100%;">📡 Setup Wireless</button>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-title">Quick Actions</div>
+                    <div class="tool-grid">
+                        <button class="action-button primary">Clear Cache</button>
+                        <button class="action-button danger">Stop BG</button>
+                        <button class="action-button primary">DB Optimize</button>
+                        <button class="action-button success">Permissions</button>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-title">Protected Packages (22)</div>
+                    <div style="font-size: 11px; line-height: 1.6; color: rgba(255,255,255,0.7);">
+                        • android, system, systemui<br>
+                        • phone, settings, gms, gsf<br>
+                        • samsung launcher & keyboard<br>
+                        • whatsapp, telegram, shizuku
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-title">System Info</div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div>
+                            <div style="font-size: 10px; color: rgba(255,255,255,0.5);">Android</div>
+                            <div style="font-size: 14px; font-weight: 600;">8.0.0</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 10px; color: rgba(255,255,255,0.5);">Device</div>
+                            <div style="font-size: 14px; font-weight: 600;">J5 Prime</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 10px; color: rgba(255,255,255,0.5);">RAM</div>
+                            <div style="font-size: 14px; font-weight: 600;">2 GB</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 10px; color: rgba(255,255,255,0.5);">Storage</div>
+                            <div style="font-size: 14px; font-weight: 600;">16 GB</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <div class="nav-item active" onclick="switchTab('clean')">
+                <div class="nav-icon">🧹</div>
+                <div class="nav-label">Clean</div>
+            </div>
+            <div class="nav-item" onclick="switchTab('performance')">
+                <div class="nav-icon">⚡</div>
+                <div class="nav-label">Performance</div>
+            </div>
+            <div class="nav-item" onclick="switchTab('apps')">
+                <div class="nav-icon">📱</div>
+                <div class="nav-label">Apps</div>
+            </div>
+            <div class="nav-item" onclick="switchTab('tools')">
+                <div class="nav-icon">🔧</div>
+                <div class="nav-label">Tools</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let shizukuActive = false;
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            
+            document.getElementById('tab-' + tab).classList.add('active');
+            event.currentTarget.classList.add('active');
+            
+            document.getElementById('content-area').scrollTop = 0;
+        }
+
+        function toggleShizuku() {
+            shizukuActive = !shizukuActive;
+            const badge = document.getElementById('shizuku-status');
+            const alertEl = document.getElementById('shizuku-alert');
+            
+            if (shizukuActive) {
+                badge.className = 'shizuku-badge active';
+                badge.innerHTML = '<span>🛡️</span><span>Protected</span>';
+                alertEl.style.display = 'none';
+            } else {
+                badge.className = 'shizuku-badge inactive';
+                badge.innerHTML = '<span>🛡️</span><span>Limited</span>';
+                alertEl.style.display = 'flex';
+            }
+        }
+
+        function startScan() {
+            const btn = event.currentTarget;
+            const html = btn.innerHTML;
+            btn.innerHTML = '<div class="spinner"></div><span>Scanning...</span>';
+            setTimeout(() => {
+                btn.innerHTML = html;
+                alert('✓ Scan complete\n\n847 MB cache\n234 MB APK\n156 MB thumbnails\n1.2 GB duplicates\n\nTotal: 2.4 GB');
+            }, 2500);
+        }
+
+        function optimizeAll() {
+            if (!shizukuActive) {
+                alert('⚠️ Shizuku required\n\nConnect USB to use force stop');
+                return;
+            }
+            alert('✓ Optimizing...\n\nStopped 8 apps\nCleared 340 MB\nRAM freed: 310 MB');
+        }
+
+        function forceStop(app) {
+            if (!shizukuActive) {
+                alert('⚠️ Shizuku required');
+                return;
+            }
+            alert('✓ ' + app + ' stopped\nRAM freed: 156 MB');
+        }
+
+        function clearCache(app) {
+            if (!shizukuActive) {
+                alert('⚠️ Shizuku required');
+                return;
+            }
+            alert('✓ ' + app + ' cache cleared\n89 MB freed');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+# key.properties.template - example for release signing
+# Copy this to android/key.properties and fill real values. Do NOT commit real secrets.
+
+storePassword=YOUR_STORE_PASSWORD
+keyPassword=YOUR_KEY_PASSWORD
+keyAlias=YOUR_KEY_ALIAS
+storeFile=../keystore/your_release_keystore.jks
+
+# If your keystore is in android/ keep storeFile=keystore.jks
+# Keep android/key.properties out of source control.
+
